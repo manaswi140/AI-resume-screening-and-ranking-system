@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard - AI Resume Screening & Ranking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 45%, #f4f7fb 45%);
+            min-height: 100vh;
+            color: #1e3c72;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dashboard-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+            flex: 1;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffdd57, #ffcb3f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #1e3c72;
+            box-shadow: 0 8px 20px rgba(255, 221, 87, 0.4);
+        }
+
+        .logo-title h1 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-name {
+            font-size: 0.95rem;
+            color: #e3ecff;
+        }
+
+        .btn-outline {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1.5px solid #ffdd57;
+            background: transparent;
+            color: #ffdd57;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background: #ffdd57;
+            color: #1e3c72;
+        }
+
+        .overview-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 26px 26px 22px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .overview-text {
+            flex: 1 1 260px;
+        }
+
+        .overview-text h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #1e3c72;
+        }
+
+        .overview-text p {
+            font-size: 0.95rem;
+            color: #425b8a;
+        }
+
+        .overview-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .btn-primary {
+            padding: 12px 28px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            background: #ffdd57;
+            color: #1e3c72;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 22px rgba(255, 221, 87, 0.35);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 26px rgba(255, 221, 87, 0.4);
+        }
+
+        .last-screening-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 18px 18px 16px;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+        }
+
+        .last-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1e3c72;
+        }
+
+        .last-meta {
+            font-size: 0.85rem;
+            color: #6b7aa6;
+            margin-bottom: 4px;
+        }
+
+        .last-score {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #15803d;
+        }
+
+        .link-small {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .link-small:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #cddcff;
+            padding: 10px 0 18px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 55%, #f4f7fb 55%);
+            }
+
+            .overview-card {
+                padding: 22px 18px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Top bar -->
+        <header class="topbar">
+            <div class="logo-title">
+                <div class="logo-dot">AI</div>
+                <h1>AI Resume Screening & Ranking</h1>
+            </div>
+            <div class="user-actions">
+                <span class="user-name">Hello, {{ current_user.username }}</span>
+                <a href="{{ url_for('logout') }}" class="btn-outline">Logout</a>
+            </div>
+        </header>
+
+        <!-- Overview -->
+        <section class="overview-card">
+            <div class="overview-text">
+                <h2>Your dashboard</h2>
+                <p>
+                    Start a new screening or quickly revisit your last one.
+                </p>
+            </div>
+            <div class="overview-actions">
+                <a href="{{ url_for('upload') }}" class="btn-primary">New Screening</a>
+            </div>
+        </section>
+
+        <!-- Only last screening -->
+        <section class="last-screening-card">
+            <div class="last-title">Last screening</div>
+
+             {% if last_screening %}
+                <p class="last-meta">
+                    Resume: <strong>{{ last_screening.resume_name }}</strong>
+                </p>
+                <p class="last-score">
+                    Top score: {{ last_screening.score }}%
+                </p>
+                <p class="last-meta">
+                    Created: {{ last_screening.created_at }}
+                </p>
+                <p style="margin-top:10px;">
+                    <a href="{{ url_for('rank') }}" class="link-small">
+                        Rank new resumes
+                    </a>
+                </p>
+            {% else %}
+                <p style="font-size:0.9rem; color:#6b7aa6;">
+                    No ranking history yet. Run a screening to see the best resume here.
+                </p>
+            {% endif %}
+        </section>
+    </div>
+
+    <footer>
+        © 2025 AI Resume Screening System &nbsp;|&nbsp; Built with Python, NLP & Machine Learning
+    </footer>
+</body>
+</html>

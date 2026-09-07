@@ -1,0 +1,18 @@
+# Ignore files
+venv/
+__pycache__/
+*.pyc
+*.pyo
+AI_resume_screening_and_ranking/
+flask_session/
+pylance/
+resumes/
+static/
+.AI_Resume_Project_Report.pdf
+*.db
+uploads/
+.DS_Store
+Thumbs.db
+.main.py
+.styles.css
+.users.db 

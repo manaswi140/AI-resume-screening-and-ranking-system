@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rank Resumes | AI Resume Screening</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Same font as other pages -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #f4f7fb 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #1e3c72;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 40px 34px;
+            border-radius: 22px;
+            box-shadow: 0 22px 46px rgba(0, 0, 0, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffdd57, #1e3c72);
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            margin-bottom: 8px;
+            color: #1e3c72;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #425b8a;
+            margin-bottom: 22px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 4px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: #1e3c72;
+            font-weight: 500;
+        }
+
+        textarea {
+            min-height: 180px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            font-size: 0.95rem;
+            color: #0f172a;
+            resize: vertical;
+            background: #f8fafc;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #ffdd57;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(255, 221, 87, 0.16);
+        }
+
+        .helper {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        button[type="submit"] {
+            margin-top: 22px;
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            background: #ffdd57;
+            color: #1e3c72;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 221, 87, 0.4);
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(255, 221, 87, 0.45);
+        }
+
+        .links {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #425b8a;
+        }
+
+        .links a {
+            color: #ffdd57;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .links a:hover {
+            color: #1e3c72;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 28px 22px;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Job Description</h2>
+        <p class="subtitle">
+            Paste the role requirements, responsibilities, and required skills. The AI engine will use this to rank all uploaded resumes by relevance.
+        </p>
+
+        <form action="{{ url_for('rank') }}" method="post">
+            <label for="job_description">Job Description</label>
+            <textarea id="job_description" name="job_description" placeholder="Example: We are looking for a Data Scientist with experience in Python, NLP, and machine learning..." required></textarea>
+            <p class="helper">
+                Tip: Include tech stack, years of experience, and must-have skills to get more accurate rankings.
+            </p>
+            <button type="submit">Rank Resumes</button>
+        </form>
+
+        <div class="links">
+            <p>
+                <a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p><br>
+            <p><a href="{{ url_for('logout') }}">Logout</a></p>
+        </div>
+    </div>
+</body>
+</html>

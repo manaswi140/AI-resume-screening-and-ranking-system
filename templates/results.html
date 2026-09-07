@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranked Resumes | AI Resume Screening</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Same font as other pages -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #f4f7fb 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #1e3c72;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 40px 34px;
+            border-radius: 22px;
+            box-shadow: 0 22px 46px rgba(0, 0, 0, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffdd57, #1e3c72);
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            margin-bottom: 6px;
+            color: #1e3c72;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #425b8a;
+            margin-bottom: 20px;
+        }
+
+        .no-data {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        thead {
+            background: #f9fafb;
+        }
+
+        th, td {
+            padding: 10px 8px;
+            text-align: left;
+        }
+
+        th {
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        tbody tr:hover {
+            background: #f3f4f6;
+        }
+
+        .rank-badge {
+            display: inline-block;
+            min-width: 26px;
+            text-align: center;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #1d4ed8;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .score-pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(34, 197, 94, 0.08);
+            color: #15803d;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .actions-row {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            font-size: 0.85rem;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            background: #ffdd57;
+            color: #1e3c72;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(255, 221, 87, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(255, 221, 87, 0.45);
+        }
+
+        .links a {
+            color: #ffdd57;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .links a:hover {
+            color: #1e3c72;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 28px 22px;
+            }
+
+            table {
+                font-size: 0.82rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ranked Resumes</h2>
+        <p class="subtitle">
+            Higher scores indicate a stronger match between the candidate’s resume and the job description you provided.
+        </p>
+
+        {% if rankings %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Resume</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resume, score in rankings %}
+                    <tr>
+                        <td><span class="rank-badge">{{ loop.index }}</span></td>
+                        <td>{{ resume }}</td>
+                        <td><span class="score-pill">{{ score }}%</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-data">No rankings available. Please upload resumes and provide a job description to generate results.</p>
+        {% endif %}
+
+        <div class="actions-row">
+            <div>
+                <a href="{{ url_for('upload') }}" class="btn-primary">New Screening</a><br>
+            </div>
+            <div class="links">
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

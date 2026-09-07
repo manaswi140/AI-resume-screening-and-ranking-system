@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Resumes | AI Resume Screening</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Same font as other pages -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #f4f7fb 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #1e3c72;
+        }
+
+        .wrapper {
+            width: 95%;
+            max-width: 650px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 40px 34px;
+            border-radius: 22px;
+            box-shadow: 0 22px 46px rgba(0, 0, 0, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffdd57, #1e3c72);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+            color: #1e3c72;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #425b8a;
+            margin-bottom: 20px;
+        }
+
+        .flash-message {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 1px solid #facc15;
+            color: #92400e;
+            padding: 10px 12px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            box-shadow: 0 8px 18px rgba(250, 204, 21, 0.25);
+        }
+
+        .session-info {
+            font-size: 0.8rem;
+            color: #16a34a;
+            margin-bottom: 14px;
+            background: #ecfdf3;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .session-info span {
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 8px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #1e3c72;
+            font-weight: 500;
+        }
+
+        .upload-box {
+            border-radius: 14px;
+            border: 2px dashed #cbd5e1;
+            padding: 18px 16px;
+            background: #f8fafc;
+            text-align: center;
+            margin-bottom: 10px;
+            transition: border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .upload-box:hover {
+            border-color: #ffdd57;
+            background: #fefce8;
+        }
+
+        .upload-box p {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: 100%;
+            background: #ffffff;
+        }
+
+        #fileValidationMessage {
+            font-size: 0.8rem;
+            margin-top: 6px;
+            color: #dc2626;
+            display: none;
+        }
+
+        button[type="submit"] {
+            margin-top: 22px;
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            background: #ffdd57;
+            color: #1e3c72;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 221, 87, 0.4);
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(255, 221, 87, 0.45);
+        }
+
+        .links {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #425b8a;
+        }
+
+        .links a {
+            color: #ffdd57;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .links a:hover {
+            color: #1e3c72;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .wrapper {
+                padding: 28px 22px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <h2>Upload Resumes</h2>
+    <p class="subtitle">
+        Add one or multiple candidate resumes (PDF or DOCX). These will be used in the next step for AI-based ranking.
+    </p>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-message">{{ messages[0] }}</div>
+        {% endif %}
+    {% endwith %}
+
+    {% if session.get('uploaded_files') %}
+        <div class="session-info">
+            <span><strong>Files already in this session:</strong></span>
+            {% for f in session.get('uploaded_files') %}
+                <br>{{ f }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        <label for="resumes">Select resumes</label>
+        <div class="upload-box">
+            <p>Click to choose files or select multiple resumes at once.</p>
+            <input type="file" name="resumes" id="resumes" multiple required>
+        </div>
+        <p id="fileValidationMessage">Allowed file types: PDF, DOCX</p>
+
+        <button type="submit">Upload Resumes</button>
+    </form>
+
+    <div class="links">
+        <p>
+            Ready to continue? <a href="{{ url_for('rank') }}">Proceed to Ranking</a><br>
+            <p>
+        <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    </p>
+        </p>
+        <p>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    // Auto-hide flash message
+    setTimeout(() => {
+        const flash = document.querySelector('.flash-message');
+        if (flash) {
+            flash.style.opacity = '0';
+            flash.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => flash.remove(), 500);
+        }
+    }, 3500);
+
+    // Simple file type validation hint
+    const fileInput = document.getElementById('resumes');
+    const validationMessage = document.getElementById('fileValidationMessage');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', () => {
+            const allowed = ['pdf', 'docx'];
+            let invalid = false;
+
+            Array.from(fileInput.files).forEach(file => {
+                const ext = file.name.split('.').pop().toLowerCase();
+                if (!allowed.includes(ext)) invalid = true;
+            });
+
+            validationMessage.style.display = invalid ? 'block' : 'none';
+        });
+    }
+</script>
+
+</body>
+</html>

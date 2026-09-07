@@ -1,0 +1,13 @@
+flask
+flask-login
+flask-sqlalchemy
+flask-wtf
+python-dotenv
+werkzeug
+gunicorn
+numpy
+pandas
+nltk
+scikit-learn
+pdfminer.six
+python-docx

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Resume Screening & Ranking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f4f7fb;
+            color: #1e3c72;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+        }
+
+        header p {
+            margin-top: 12px;
+            font-size: 1.1rem;
+            color: #dbe7ff;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .login {
+            background: #ffdd57;
+            color: #1e3c72;
+        }
+
+        .register {
+            background: transparent;
+            border: 2px solid #ffdd57;
+            color: #ffdd57;
+        }
+
+        section {
+            padding: 70px 10%;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 28px;
+            border-radius: 14px;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #425b8a;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 45px;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #1e3c72;
+            color: #cddcff;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>AI Resume Screening & Ranking</h1>
+    <p>
+        A smart web-based system designed for companies, recruiters, and organizations
+        to automatically screen, analyze, and rank resumes using Artificial Intelligence.
+    </p>
+
+    <div class="buttons">
+        <a href="{{ url_for('login') }}"><button class="btn login">Login</button></a>
+        <a href="{{ url_for('register') }}"><button class="btn register">Register</button></a>
+    </div>
+</header>
+
+<section>
+    <h2 class="section-title">How the System Works</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>📄 Resume Upload</h3>
+            <p>
+                Companies or recruiters can upload multiple resumes in PDF or DOCX format.
+                The system automatically extracts relevant textual information.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🤖 AI-Based Screening</h3>
+            <p>
+                Using Natural Language Processing (NLP), resumes are analyzed and compared
+                with job requirements to identify skill relevance.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>📊 Candidate Ranking</h3>
+            <p>
+                Resumes are ranked based on similarity scores and relevance,
+                helping decision-makers shortlist the most suitable candidates.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title">Who Can Use This Platform?</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>🏢 Companies & HR Teams</h3>
+            <p>
+                Reduce manual resume screening effort and speed up the hiring process
+                while maintaining consistency and fairness.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🧑‍💼 Recruiters</h3>
+            <p>
+                Quickly shortlist candidates from large resume pools
+                and focus more on interviews and decision-making.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🎓 Institutions & Projects</h3>
+            <p>
+                Can be used as a learning tool or prototype to demonstrate
+                AI-driven automation in recruitment workflows.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title">Why Use AI Resume Screening?</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>⏱ Time Efficient</h3>
+            <p>
+                Automatically process hundreds of resumes in seconds,
+                saving valuable time for recruiters and HR teams.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>⚖ Unbiased Ranking</h3>
+            <p>
+                Focuses on skills and relevance rather than manual judgment,
+                helping reduce unconscious bias.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>📈 Scalable Solution</h3>
+            <p>
+                Suitable for startups as well as large organizations
+                handling high-volume recruitment.
+            </p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2025 AI Resume Screening System | Built with Python, NLP & Machine Learning
+</footer>
+
+</body>
+</html>
